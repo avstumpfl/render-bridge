@@ -1,11 +1,3 @@
-
-# render-bridge repo
-
-This parent repo is for AVStumpfl PIXERA's RenderBridge extension API. For more information on RenderBridge refer to our documentation on it:
-
-https://help.pixera.one/en_US/renderbridge-extension-mechanism
-
-
 # HUD Project File
 
 The HUD project file is an example project for blending TouchDesigner and PIXERA workflows together. Within TouchDesigner/HUD the following files are present:
