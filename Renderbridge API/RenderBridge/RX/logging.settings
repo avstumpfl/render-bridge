@@ -1,0 +1,3 @@
+stdout = true,
+synchronous = true,
+merge_recent = 0,

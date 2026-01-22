@@ -1,0 +1,3 @@
+**/_build/
+/RenderBridge/RX/modules/*.pdb
+/RenderBridge/RX/modules/Ext*.dll

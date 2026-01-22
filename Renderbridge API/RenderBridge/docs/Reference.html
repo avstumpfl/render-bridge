@@ -1,0 +1,1642 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional //EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>RenderBridge - RX Extension Interface</title>
+<style>
+/*light*/
+
+body {
+  margin: 20px;
+  max-width: 800px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #1F2328;
+  background-color: #ffffff;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 16px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.octicon {
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: text-bottom;
+}
+
+h1:hover .anchor .octicon-link:before,
+h2:hover .anchor .octicon-link:before,
+h3:hover .anchor .octicon-link:before,
+h4:hover .anchor .octicon-link:before,
+h5:hover .anchor .octicon-link:before,
+h6:hover .anchor .octicon-link:before {
+  width: 16px;
+  height: 16px;
+  content: ' ';
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+  mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' aria-hidden='true'><path fill-rule='evenodd' d='M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z'></path></svg>");
+}
+
+details,
+figcaption,
+figure {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+a {
+  background-color: transparent;
+  color: #0969da;
+  text-decoration: none;
+}
+
+abbr[title] {
+  border-bottom: none;
+  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
+}
+
+b,
+strong {
+  font-weight: 600;
+}
+
+dfn {
+  font-style: italic;
+}
+
+h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid hsla(210,18%,87%,1);
+}
+
+mark {
+  background-color: #fff8c5;
+  color: #1F2328;
+}
+
+small {
+  font-size: 90%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: #ffffff;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid hsla(210,18%,87%,1);
+  height: .25em;
+  padding: 0;
+  margin: 24px 0;
+  background-color: #d0d7de;
+  border: 0;
+}
+
+input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+[type=button],
+[type=reset],
+[type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+[type=checkbox],
+[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+[type=number]::-webkit-inner-spin-button,
+[type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type=search]::-webkit-search-cancel-button,
+[type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+::placeholder {
+  color: #6e7781;
+  opacity: 1;
+}
+
+hr::before {
+  display: table;
+  content: "";
+}
+
+hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+details summary {
+  cursor: pointer;
+}
+
+details:not([open])>*:not(summary) {
+  display: none !important;
+}
+
+a:focus,
+[role=button]:focus,
+input[type=radio]:focus,
+input[type=checkbox]:focus {
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+a:focus:not(:focus-visible),
+[role=button]:focus:not(:focus-visible),
+input[type=radio]:focus:not(:focus-visible),
+input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+a:focus-visible,
+[role=button]:focus-visible,
+input[type=radio]:focus-visible,
+input[type=checkbox]:focus-visible {
+  outline: 2px solid #0969da;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+a:not([class]):focus,
+a:not([class]):focus-visible,
+input[type=radio]:focus,
+input[type=radio]:focus-visible,
+input[type=checkbox]:focus,
+input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  line-height: 10px;
+  color: #1F2328;
+  vertical-align: middle;
+  background-color: #f6f8fa;
+  border: solid 1px rgba(175,184,193,0.2);
+  border-bottom-color: rgba(175,184,193,0.2);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 rgba(175,184,193,0.2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid hsla(210,18%,87%,1);
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #656d76;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #656d76;
+  border-left: .25em solid #d0d7de;
+}
+
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+ol ol,
+ul ol {
+  list-style-type: lower-roman;
+}
+
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+dd {
+  margin-left: 0;
+}
+
+tt,
+code,
+samp {
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  font-size: 12px;
+}
+
+pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.mr-2 {
+  margin-right: 8px !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.absent {
+  color: #d1242f;
+}
+
+.anchor {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.anchor:focus {
+  outline: none;
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre,
+details {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+blockquote>:first-child {
+  margin-top: 0;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+  color: #1F2328;
+  vertical-align: middle;
+  visibility: hidden;
+}
+
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+  text-decoration: none;
+}
+
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+  visibility: visible;
+}
+
+h1 tt,
+h1 code,
+h2 tt,
+h2 code,
+h3 tt,
+h3 code,
+h4 tt,
+h4 code,
+h5 tt,
+h5 code,
+h6 tt,
+h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+summary h1,
+summary h2,
+summary h3,
+summary h4,
+summary h5,
+summary h6 {
+  display: inline-block;
+}
+
+summary h1 .anchor,
+summary h2 .anchor,
+summary h3 .anchor,
+summary h4 .anchor,
+summary h5 .anchor,
+summary h6 .anchor {
+  margin-left: -40px;
+}
+
+summary h1,
+summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+ul.no-list,
+ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+ol[type="1"] {
+  list-style-type: decimal;
+}
+
+div>ol:not([type]) {
+  list-style-type: decimal;
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+li>p {
+  margin-top: 16px;
+}
+
+li+li {
+  margin-top: .25em;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+table th {
+  font-weight: 600;
+}
+
+table th,
+table td {
+  padding: 6px 13px;
+  border: 1px solid #d0d7de;
+}
+
+table td>:last-child {
+  margin-bottom: 0;
+}
+
+table tr {
+  background-color: #ffffff;
+  border-top: 1px solid hsla(210,18%,87%,1);
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+table img {
+  background-color: transparent;
+}
+
+img[align=right] {
+  padding-left: 20px;
+}
+
+img[align=left] {
+  padding-right: 20px;
+}
+
+.emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+span.frame>span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #d0d7de;
+}
+
+span.frame span img {
+  display: block;
+  float: left;
+}
+
+span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #1F2328;
+}
+
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+span.align-center>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+span.align-right>span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+span.float-left span {
+  margin: 13px 0 0;
+}
+
+span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+span.float-right>span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+code,
+tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: rgba(175,184,193,0.2);
+  border-radius: 6px;
+}
+
+code br,
+tt br {
+  display: none;
+}
+
+del code {
+  text-decoration: inherit;
+}
+
+samp {
+  font-size: 85%;
+}
+
+pre code {
+  font-size: 100%;
+}
+
+pre>code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.highlight {
+  margin-bottom: 16px;
+}
+
+.highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.highlight pre,
+pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #1F2328;
+  background-color: #f6f8fa;
+  border-radius: 6px;
+}
+
+pre code,
+pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.csv-data td,
+.csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.csv-data .blob-num {
+  padding: 10px 8px 9px;
+  text-align: right;
+  background: #ffffff;
+  border: 0;
+}
+
+.csv-data tr {
+  border-top: 0;
+}
+
+.csv-data th {
+  font-weight: 600;
+  background: #f6f8fa;
+  border-top: 0;
+}
+
+[data-footnote-ref]::before {
+  content: "[";
+}
+
+[data-footnote-ref]::after {
+  content: "]";
+}
+
+.footnotes {
+  font-size: 12px;
+  color: #656d76;
+  border-top: 1px solid #d0d7de;
+}
+
+.footnotes ol {
+  padding-left: 16px;
+}
+
+.footnotes ol ul {
+  display: inline-block;
+  padding-left: 16px;
+  margin-top: 16px;
+}
+
+.footnotes li {
+  position: relative;
+}
+
+.footnotes li:target::before {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  bottom: -8px;
+  left: -24px;
+  pointer-events: none;
+  content: "";
+  border: 2px solid #0969da;
+  border-radius: 6px;
+}
+
+.footnotes li:target {
+  color: #1F2328;
+}
+
+.footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.pl-c {
+  color: #57606a;
+}
+
+.pl-c1,
+.pl-s .pl-v {
+  color: #0550ae;
+}
+
+.pl-e,
+.pl-en {
+  color: #6639ba;
+}
+
+.pl-smi,
+.pl-s .pl-s1 {
+  color: #24292f;
+}
+
+.pl-ent {
+  color: #116329;
+}
+
+.pl-k {
+  color: #cf222e;
+}
+
+.pl-s,
+.pl-pds,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sre,
+.pl-sr .pl-sra {
+  color: #0a3069;
+}
+
+.pl-v,
+.pl-smw {
+  color: #953800;
+}
+
+.pl-bu {
+  color: #82071e;
+}
+
+.pl-ii {
+  color: #f6f8fa;
+  background-color: #82071e;
+}
+
+.pl-c2 {
+  color: #f6f8fa;
+  background-color: #cf222e;
+}
+
+.pl-sr .pl-cce {
+  font-weight: bold;
+  color: #116329;
+}
+
+.pl-ml {
+  color: #3b2300;
+}
+
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+  font-weight: bold;
+  color: #0550ae;
+}
+
+.pl-mi {
+  font-style: italic;
+  color: #24292f;
+}
+
+.pl-mb {
+  font-weight: bold;
+  color: #24292f;
+}
+
+.pl-md {
+  color: #82071e;
+  background-color: #ffebe9;
+}
+
+.pl-mi1 {
+  color: #116329;
+  background-color: #dafbe1;
+}
+
+.pl-mc {
+  color: #953800;
+  background-color: #ffd8b5;
+}
+
+.pl-mi2 {
+  color: #eaeef2;
+  background-color: #0550ae;
+}
+
+.pl-mdr {
+  font-weight: bold;
+  color: #8250df;
+}
+
+.pl-ba {
+  color: #57606a;
+}
+
+.pl-sg {
+  color: #8c959f;
+}
+
+.pl-corl {
+  text-decoration: underline;
+  color: #0a3069;
+}
+
+g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.task-list-item {
+  list-style-type: none;
+}
+
+.task-list-item label {
+  font-weight: 400;
+}
+
+.task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.task-list-item+.task-list-item {
+  margin-top: 4px;
+}
+
+.task-list-item .handle {
+  display: none;
+}
+
+.task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.contains-task-list:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.contains-task-list {
+  position: relative;
+}
+
+.contains-task-list:hover .task-list-item-convert-container,
+.contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-alert {
+  padding: 8px 16px;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #d0d7de;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0;
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: #0969da;
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #0969da;
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: #8250df;
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #8250df;
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: #9a6700;
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #9a6700;
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: #1f883d;
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #1a7f37;
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: #cf222e;
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #d1242f;
+}</style>
+</head>
+<script>
+
+function format_code(code) {
+  return code.replace(/([^\s]*)\(/g, '<b>$1</b>(');
+}
+
+function onload() {
+  var codes = document.getElementsByTagName('code');
+  for (var i = 0; i < codes.length; ++i) {
+    codes[i].innerHTML = format_code(codes[i].innerHTML);
+  }
+}
+</script>
+<body onload="onload()"><ul>
+ <li><a href="#RenderBridge--2d--RX-Extension-Interface">RenderBridge - RX Extension Interface</a>
+ <ul>
+  <li><a href="#Overview">Overview</a></li>
+  <li><a href="#Files">Files</a>
+  <ul>
+   <li><a href="#L-3c-em-3e-rxext.h-3c--2f-em-3e-"><em>rxext.h</em></a></li>
+   <li><a href="#L-3c-em-3e-rxext_client.h-3c--2f-em-3e-"><em>rxext_client.h</em></a></li>
+  </ul>
+  </li>
+  <li><a href="#Stream-Device-Extension">Stream Device Extension</a>
+  <ul>
+   <li><a href="#Creation-of-streams">Creation of streams</a></li>
+   <li><a href="#Video-input">Video input</a>
+   <ul>
+    <li><a href="#Video-input-from-render-target">Video input from render target</a></li>
+    <li><a href="#Video-input-from-system-memory">Video input from system memory</a></li>
+   </ul>
+   </li>
+   <li><a href="#Video-output">Video output</a>
+   <ul>
+    <li><a href="#Video-output-to-render-target">Video output to render target</a></li>
+    <li><a href="#Video-output-to-system-memory">Video output to system memory</a></li>
+   </ul>
+   </li>
+   <li><a href="#Audio-input">Audio input</a></li>
+   <li><a href="#Audio-output">Audio output</a></li>
+  </ul>
+  </li>
+  <li><a href="#Classes-defined-in--3c-em-3e-rxext_client.h-3c--2f-em-3e-">Classes defined in <em>rxext_client.h</em></a>
+  <ul>
+   <li><a href="#Extension">Extension</a></li>
+   <li><a href="#HostContext">HostContext</a></li>
+   <li><a href="#StreamDevice">StreamDevice</a></li>
+   <li><a href="#InputStream">InputStream</a></li>
+   <li><a href="#OutputStream">OutputStream</a></li>
+   <li><a href="#MemoryInputStream">MemoryInputStream</a></li>
+   <li><a href="#MemoryOutputStream">MemoryOutputStream</a></li>
+   <li><a href="#Parameter">Parameter</a></li>
+  </ul>
+  </li>
+  <li><a href="#Structures-defined-in--3c-em-3e-rxext.h-3c--2f-em-3e-">Structures defined in <em>rxext.h</em></a>
+  <ul>
+   <li><a href="#ShareHandle">ShareHandle</a></li>
+   <li><a href="#SyncDesc">SyncDesc</a></li>
+  </ul>
+  </li>
+ </ul>
+ </li>
+</ul>
+<a name="RenderBridge--2d--RX-Extension-Interface"></a>
+<h1>RenderBridge - RX Extension Interface</h1>
+
+<a name="Overview"></a>
+<h2>Overview</h2>
+
+<p>The RX Extension Interface allows to write C++ extensions, which provide additional functionality to the RX engine.<br/>
+It allows extensions to provide:</p>
+
+<ul>
+<li><a href="#Stream-Device-Extension">StreamDevices</a> for streaming video and audio data to and from RX.</li>
+</ul>
+
+
+<a name="Files"></a>
+<h2>Files</h2>
+
+<a name="L-3c-em-3e-rxext.h-3c--2f-em-3e-"></a>
+<h3><em>rxext.h</em></h3>
+
+<p>Is the C++ header containing all type definitions of the extension interface.<br/>
+All types have a defined ABI, so the extension can be compiled with any C++ compiler supporting C++17 and used by a host regardless of the compiler the host was built with.</p>
+
+<p>It includes headers provided by the <a href="https://github.com/MFHava/PTL">PTL</a> project, which allow convenient interchange of string, vector and function object parameters.</p>
+
+<p>The header also declares the two C functions each extension binary must export. <code>rxext_open</code> is called when the extension is loaded and <code>rxext_close</code> when it is unloaded.</p>
+
+<a name="L-3c-em-3e-rxext_client.h-3c--2f-em-3e-"></a>
+<h3><em>rxext_client.h</em></h3>
+
+<p>Contains abstract type definitions the extension should derive from. The function pointers defined in <em>rxext.h</em> are automatically bound to methods of the abstract types.</p>
+
+<a name="Stream-Device-Extension"></a>
+<h2>Stream Device Extension</h2>
+
+<p>The <a href="#Extension">extension</a> provides a list of <a href="#StreamDevice">devices</a> for which the host creates streams. Depending on the direction, the host or the extension calls a function once per frame to stream the data to the other.</p>
+
+<a name="Creation-of-streams"></a>
+<h3>Creation of streams</h3>
+
+<ul>
+<li><p>Each <a href="#Extension">Extension</a> needs to implement <code>create_stream_device</code>, which creates a <a href="#StreamDevice">StreamDevice</a> with some specific settings.</p></li>
+<li><p>The settings for the devices can be either provided by the host or by the extension. The extension can report the available devices by implementing <code>enumerate_stream_device_settings</code>. When it does so, it should send a <code>DevicesChanged</code> <a href="#HostContext_send_event">host event</a> when the settings change.</p></li>
+<li><p>Each <a href="#StreamDevice">StreamDevice</a> should implement <code>get_property</code>, to provide the device name and information about the channels.<br/>
+Depending on the type of device, it needs to implement <code>create_input_stream</code> and/or <code>create_output_stream</code>, which create a stream with some specific settings.</p></li>
+<li><p>The settings for the streams can be either provided by the host or by the device. The device can report the available streams by implementing <code>enumerate_stream_settings</code>. When it does so, it should send a <code>StreamsChanged</code> <a href="#HostContext_send_event">host event</a> when the settings change.</p></li>
+<li><p>The host creates the streams and subsequently calls <code>set_active_streams</code>, passing pointers to all active streams (in case the streams are linked and need to be activated together).</p></li>
+<li><p>Each device and input stream can register a number of input and output <a href="#Parameter">Parameters</a> during its initialization.</p></li>
+<li><p>All streams need to implement <a href="#InputStream_get_state">get_state</a>, which the host calls to obtain information about the stream&rsquo;s resolution, color format, audio channel count and sample rate.</p></li>
+</ul>
+
+
+<a name="Video-input"></a>
+<h3>Video input</h3>
+
+<a name="Video-input-from-render-target"></a>
+<h4>Video input from render target</h4>
+
+<p>See <a href="#InputStream">InputStream</a>. [WIP]</p>
+
+<a name="Video-input-from-system-memory"></a>
+<h4>Video input from system memory</h4>
+
+<p>See <a href="#MemoryInputStream">MemoryInputStream</a>. [WIP]</p>
+
+<a name="Video-output"></a>
+<h3>Video output</h3>
+
+<a name="Video-output-to-render-target"></a>
+<h4>Video output to render target</h4>
+
+<p>See <a href="#OutputStream">OutputStream</a>. [WIP]</p>
+
+<a name="Video-output-to-system-memory"></a>
+<h4>Video output to system memory</h4>
+
+<p>See <a href="#MemoryOutputStream">MemoryOutputStream</a>. [WIP]</p>
+
+<a name="Audio-input"></a>
+<h3>Audio input</h3>
+
+<p>The host passes a callback to the <a href="#InputStream">InputStream</a> by calling <code>set_audio_callback</code>. The extension should invoke it for each available audio frame. The callback is set and reset depending on whether audio is currently requested.</p>
+
+<a name="Audio-output"></a>
+<h3>Audio output</h3>
+
+<p>The host streams out audio frames by calling the <a href="#OutputStream">OutputStream&rsquo;s</a> <code>send_audio_frame</code>.</p>
+
+<a name="Classes-defined-in--3c-em-3e-rxext_client.h-3c--2f-em-3e-"></a>
+<h2>Classes defined in <em>rxext_client.h</em></h2>
+
+<p>All types are in the <code>rxext</code> namespace and since no exception must leave the extension code, all methods are marked as <em>noexcept</em>.</p>
+
+<a name="Extension"></a>
+<h3>Extension</h3>
+
+<p>An object implementing the <code>Extension</code> interface should be created and returned from the <code>rxext_open</code> function. It allows the host to communicate with the extension.</p>
+
+<pre><code>class Extension {  
+  HostContext&amp; host();  
+  virtual bool initialize();  
+  virtual void shutdown();  
+  virtual string get_property(string_view name);  
+  virtual bool set_property(string_view name, string value);  
+  virtual vector&lt;ValueSet&gt; enumerate_stream_device_settings();  
+  virtual StreamDevice* create_stream_device(ValueSet settings);  
+};  
+</code></pre>
+
+<ul>
+<li><p><code>initialize</code> is called when the host context is available. It should return whether the initialization succeeded.</p></li>
+<li><p><code>shutdown</code> is only called when it was successfully initialized.</p></li>
+<li><p><code>get_property</code> can provide information about the extension. Common properties are:</p>
+
+<ul>
+<li><em>name</em>: The name of the extension.</li>
+<li><em>version</em>: The version of the extension.</li>
+</ul>
+</li>
+<li><p><code>set_property</code> allows to set properties of the extension.</p></li>
+<li><p><code>enumerate_stream_device_settings</code> can provide settings of the currently available device.</p></li>
+<li><p><code>create_stream_device</code> creates a new stream device using the provided settings.</p></li>
+</ul>
+
+
+<a name="HostContext"></a>
+<h3>HostContext</h3>
+
+<p>A <code>HostContext</code> object which provides functions for communicating with the extension host.</p>
+
+<pre><code>class HostContext {  
+  void send_event(EventSeverity severity, EventCategory category,   
+      string_view message = { });  
+  void send_event(EventCategory category, string_view message = { });  
+  void log_message(EventSeverity severity, string_view message);  
+  void log_verbose(string_view message);  
+  void log_info(string_view message);  
+  void log_warning(string_view message);  
+  void log_error(string_view message);  
+  string resolve_storage_filename(string_view storage_filename);  
+  string get_userdata_path(string_view path);  
+  void async(OnComplete&amp;&amp; callback);  
+  void async(AsyncPolicy policy, OnComplete&amp;&amp; callback);  
+  void set_timeout(std::chrono::duration&lt;double&gt; delay, OnComplete&amp;&amp; callback);  
+  TextureRef create_texture(const TextureDesc&amp; desc);  
+  void download_texture(TextureRef texture, OnTextureDownloaded callback);  
+  void upload_texture(TextureRef texture, const BufferDesc&amp; buffer,   
+      bool upload_copy, OnTextureUploaded callback);  
+  void unpack_video_frame(const VideoFrame&amp; frame, OnComplete on_data_read,  
+      OnVideoFrameUnpacked callback);  
+  void send_audio_frame(const AudioFrame&amp; frame, OnComplete callback);  
+};  
+</code></pre>
+
+<ul>
+<li><p><code>log_{message,verbose,info,warning,error}</code> allows the extension to log messages.</p></li>
+<li><p><code>send_event</code> <a name="HostContext_send_event"></a></p>
+
+<ul>
+<li>Message</li>
+<li>StreamsChanged</li>
+</ul>
+</li>
+<li><p><code>resolve_storage_filename</code></p></li>
+<li><p><code>get_userdata_path</code></p></li>
+<li><p><code>async</code> and <code>set_timeout</code></p></li>
+<li><p><code>create_texture</code></p></li>
+<li><p><code>download_texture</code></p></li>
+<li><p><code>upload_texture</code></p></li>
+<li><p><code>unpack_video_frame</code></p></li>
+<li><p><code>send_audio_frame</code></p></li>
+</ul>
+
+
+<a name="StreamDevice"></a>
+<h3>StreamDevice</h3>
+
+<pre><code>class StreamDevice {  
+  HostContext&amp; host();  
+  Parameter* find_parameter(string_view name) const;  
+  T* add_parameter(Args&amp;&amp;... args);  
+
+  virtual bool initialize();  
+  virtual string get_property(string_view name);  
+  virtual bool set_property(string_view name, string value);  
+  virtual vector&lt;ValueSet&gt; enumerate_stream_settings();  
+  virtual InputStream* create_input_stream(ValueSet settings);  
+  virtual OutputStream* create_output_stream(ValueSet settings);  
+  virtual bool set_active_streams(  
+      const vector&lt;InputStream*&gt;&amp; input_streams,  
+      const vector&lt;OutputStream*&gt;&amp; output_streams);  
+  virtual bool update();  
+  virtual SyncDesc before_render();  
+  virtual void render();  
+  virtual SyncDesc after_render();  
+};  
+</code></pre>
+
+<ul>
+<li><p><code>host</code> returns the device&rsquo;s host context.</p></li>
+<li><p><code>initialize</code> is called when the host context is available. It should initialize the device, complete registration of all parameters and return whether the initialization succeeded.</p></li>
+<li><p><code>get_property</code> should return properties of the device. Common properties are:</p>
+
+<ul>
+<li><em>name: string</em> - the name of the device.</li>
+<li><em>channel_names: vector&lt;string&gt;</em> - the channel names.</li>
+<li><em>channel_types: vector&lt;string&gt;</em> - the channel types (&lsquo;input&rsquo;, &lsquo;output&rsquo;, &lsquo;clock&rsquo;).</li>
+</ul>
+</li>
+<li><p><code>set_property</code> allows to set properties of the device.</p></li>
+<li><p><code>enumerate_stream_settings</code> can provide settings of the currently available streams. Common settings are:</p>
+
+<ul>
+<li><em>name: string</em> - the name of the stream.</li>
+<li><em>handle: string</em> - the identification of the stream.</li>
+<li><em>settings_desc: string</em> - a JSON description of the settings, so the user interface can create controls to customize them. The <code>SettingsDescBuilder</code> helps with building the description.</li>
+</ul>
+</li>
+<li><p><code>create_input_stream</code> creates a new input stream using the provided settings. See <a href="#InputStream_settings">InputStream::update_settings()</a> for a list of potential settings.</p></li>
+<li><p><code>create_output_stream</code> creates a new input stream using the provided settings. See <a href="#OutputStream_settings">OutputStream::update_settings()</a> for a list of potential settings.</p></li>
+<li><p><code>set_active_streams</code> is called when the set of active streams changes.</p></li>
+<li><p><code>update</code> is called once per frame.</p></li>
+<li><p><code>before_render</code></p></li>
+<li><p><code>render</code></p></li>
+<li><p><code>after_render</code></p></li>
+</ul>
+
+
+<a name="InputStream"></a>
+<h3>InputStream</h3>
+
+<pre><code>class InputStream {  
+  HostContext&amp; host();  
+  Parameter* find_parameter(string_view name) const;  
+  T* add_parameter(Args&amp;&amp;... args);  
+  T* add_output_parameter(Args&amp;&amp;... args);  
+
+  virtual bool initialize();  
+  virtual bool update_settings(ValueSet settings);  
+  virtual ValueSet get_state();  
+  virtual size_t get_parameter_count();  
+  virtual Parameter* get_parameter(size_t index);  
+  virtual string get_property(string_view name);  
+  virtual bool set_property(string_view name, string value);    
+  virtual void set_video_requested(bool requested);  
+  virtual void set_audio_callback(SendAudioFrame&amp;&amp; send_audio_frame);  
+  virtual bool update();  
+  virtual SyncDesc before_render();  
+  virtual RenderResult render();  
+  virtual SyncDesc after_render();  
+};  
+</code></pre>
+
+<ul>
+<li><p><code>host</code> returns the stream&rsquo;s host context.</p></li>
+<li><p><code>initialize</code> is called when the host context is available. It should complete the registration of all parameters and return whether the initialization succeeded.</p></li>
+<li><p><code>update_settings</code> <a name="InputStream_settings"></a> allows to update stream settings on the fly. The function should return whether the update could be applied successfully. When it failed the stream is recreated with the new settings. Common settings are:</p>
+
+<ul>
+<li><em>handle</em>:</li>
+<li><em>channel_index</em>:</li>
+<li><em>deinterlace_mode</em>: (weave, bob, even, odd).</li>
+<li><em>sync_group</em>:</li>
+</ul>
+</li>
+<li><p><code>get_state</code> <a name="InputStream_get_state"></a> can provide information about the stream&rsquo;s state. Common states are:</p>
+
+<ul>
+<li><em>resolution_x: int</em> - the horizontal resolution.</li>
+<li><em>resolution_y: int</em> - the vertical resolution.</li>
+<li><em>frame_rate: double</em> - the frame rate.</li>
+<li><em>pixel_format: string</em> - the format of the video frame corresponding to FFMpeg pixel formats (e.g. RGB24, RGBA, YUV444P).</li>
+<li><em>texture_format: string</em> - the texture format.</li>
+<li><em>audio_channel_count: int</em> - the audio channel count.</li>
+<li><em>audio_sample_rate: int</em> - the audio sample rate.</li>
+</ul>
+</li>
+<li><p><code>add_parameter</code> adds a new stream parameter. Parameters need to be added before the initialization is complete.</p>
+
+<ul>
+<li>Input parameters bound by the engine:
+
+<ul>
+<li><em>visible: Bool</em></li>
+</ul>
+</li>
+<li>Output parameters bound by the engine:
+
+<ul>
+<li><em>sampler: Texture</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>add_output_parameter</code> adds a new parameter where the <code>direction</code> property is set to <code>out</code>.</p></li>
+<li><p><code>find_parameter</code> / <code>get_parameter</code> / <code>get_parameter_count</code> allow to enumerate the stream&rsquo;s parameters.</p></li>
+<li><p><code>get_property</code> should return properties of the stream. Common properties are:</p>
+
+<ul>
+<li><em>shader_export</em>: string</li>
+<li><em>shader_file</em>: string</li>
+<li><em>shader_source</em>: string</li>
+<li><em>layer_names</em>: vector&lt;string&gt;</li>
+<li><em>layer_ids</em>: vector&lt;string&gt;</li>
+</ul>
+</li>
+<li><p><code>set_property</code> allows to set properties of the stream.</p></li>
+<li><p><code>set_video_requested</code></p></li>
+<li><p><code>set_audio_callback</code></p></li>
+<li><p><code>update</code> is called once per frame.</p></li>
+<li><p><code>before_render</code></p></li>
+<li><p><code>render</code></p></li>
+<li><p><code>after_render</code></p></li>
+</ul>
+
+
+<a name="OutputStream"></a>
+<h3>OutputStream</h3>
+
+<pre><code>class OutputStream {  
+  HostContext&amp; host();  
+
+  virtual bool initialize();  
+  virtual bool update_settings(ValueSet settings);  
+  virtual ValueSet get_state();  
+  virtual string get_property(string_view name);  
+  virtual bool set_property(string_view name, string value);  
+  virtual bool send_audio_frame(const AudioFrame&amp; audio_frame);  
+  virtual TextureRef get_target();  
+  virtual SyncDesc before_render();  
+  virtual SyncDesc after_render();  
+  virtual void present();  
+  virtual void swap();  
+};  
+</code></pre>
+
+<ul>
+<li><p><code>host</code> returns the stream&rsquo;s host context.</p></li>
+<li><p><code>initialize</code> is called when the host context is available. It should return whether the initialization succeeded.</p></li>
+<li><p><code>update_settings</code> <a name="OutputStream_settings"></a> allows to update stream settings on the fly. The function should return whether the update could be applied successfully. When it failed the stream is recreated with the new settings. Common settings are:</p>
+
+<ul>
+<li><em>handle</em>:</li>
+<li><em>channel_index</em>:</li>
+<li><em>resolution_x</em>:</li>
+<li><em>resolution_y</em>:</li>
+<li><em>frame_rate</em>:</li>
+<li><em>sync_video</em>:</li>
+</ul>
+</li>
+<li><p><code>get_state</code> can provide information about the stream&rsquo;s state. Common states are:</p>
+
+<ul>
+<li><em>resolution_x: int</em> - the horizontal resolution.</li>
+<li><em>resolution_y: int</em> - the vertical resolution.</li>
+<li><em>format: string</em> - the format of the render target.</li>
+<li><em>frame_rate: double</em> - the target frame rate.</li>
+<li><em>sync_video: int</em> - whether the extension is synchronizing to the stream&rsquo;s frame rate.</li>
+</ul>
+</li>
+<li><p><code>set_property</code> / <code>get_property</code> allow to get or set the properties of the stream.</p></li>
+<li><p><code>send_audio_frame</code></p></li>
+<li><p><code>get_target</code></p></li>
+<li><p><code>before_render</code></p></li>
+<li><p><code>after_render</code></p></li>
+<li><p><code>present</code></p></li>
+<li><p><code>swap</code></p></li>
+</ul>
+
+
+<a name="MemoryInputStream"></a>
+<h3>MemoryInputStream</h3>
+
+<p>Is derived from <a href="#InputStream">InputStream</a> and simplifies streaming in video frames, which need to be read from system memory.<br/>
+Extensions need to implement <code>set_video_callback</code>, which is called as soon as video data is requested. The passed callback should be called whenever a new video frame arrives.<br/>
+It also registers a texture parameter <em>sampler</em>, which is updated with the provided video data.</p>
+
+<pre><code>class MemoryInputStream : public InputStream {  
+  void set_video_requested(bool requested);  
+
+  virtual void set_video_callback(SendVideoFrame&amp;&amp; send_video_frame);  
+};  
+</code></pre>
+
+<ul>
+<li><p><code>set_video_requested</code></p></li>
+<li><p><code>set_video_callback</code></p></li>
+</ul>
+
+
+<a name="MemoryOutputStream"></a>
+<h3>MemoryOutputStream</h3>
+
+<p>Is derived from <a href="#OutputStream">OutputStream</a> and simplifies streaming out video frames, which need to be written to system memory.</p>
+
+<pre><code>class MemoryOutputStream : public OutputStream {  
+  MemoryOutputStream(TextureDesc target_desc);  
+  const TextureDesc&amp; target_desc() const;  
+  void set_video_requested(bool video_requested);  
+
+  virtual bool send_texture_data(const BufferDesc&amp; plane);  
+};  
+</code></pre>
+
+<ul>
+<li><p><code>MemoryOutputStream</code></p></li>
+<li><p><code>target_desc</code></p></li>
+<li><p><code>set_video_requested</code></p></li>
+<li><p><code>send_texture_data</code></p></li>
+</ul>
+
+
+<a name="Parameter"></a>
+<h3>Parameter</h3>
+
+<pre><code>virtual ParameterType type() const;  
+virtual string_view name() const;  
+virtual void get_value(void* data, size_t* size) const;  
+virtual void set_value(const void* data, size_t size);  
+virtual string get_property(string_view name) const;  
+virtual bool set_property(string_view name, string value);  
+template&lt;typename T&gt; bool set_property(string_view name, T&amp;&amp; value);  
+</code></pre>
+
+<ul>
+<li><p><code>type</code> returns the type of the parameter.</p></li>
+<li><p><code>name</code> returns the name of the parameter.</p></li>
+<li><p><code>get_value</code> returns the current value of the parameter.</p></li>
+<li><p><code>set_value</code> sets the current value of the parameter.</p></li>
+<li><p><code>get_property</code> <a name="Parameter_properties"></a> can provide information about the parameter. Common properties are:</p>
+
+<ul>
+<li><em>name: string</em> - a friendly name to display in the user interface.</li>
+<li><em>purpose: string</em> - the purpose of the parameter:
+
+<ul>
+<li>TimelineTime</li>
+<li>Color</li>
+<li>Position</li>
+<li>Rotation</li>
+<li>Scale</li>
+<li>WorldMatrix</li>
+<li>ViewMatrix</li>
+<li>ProjectionMatrix</li>
+</ul>
+</li>
+<li><em>enum_names: vector&lt;string&gt;</em></li>
+<li><em>active_in_layers: vector&lt;int&gt;</em></li>
+<li><em>min_value: double</em></li>
+<li><em>max_value: doulble</em></li>
+<li><em>min_value_ui: double</em></li>
+<li><em>max_value_ui: doulble</em></li>
+</ul>
+</li>
+<li><p><code>set_property</code> sets a property of the parameter.</p></li>
+</ul>
+
+
+<a name="Structures-defined-in--3c-em-3e-rxext.h-3c--2f-em-3e-"></a>
+<h2>Structures defined in <em>rxext.h</em></h2>
+
+<a name="ShareHandle"></a>
+<h3>ShareHandle</h3>
+
+<pre><code>struct ShareHandle {  
+  HandleType type;  
+  Handle handle;  
+  uint64_t process_id;  
+  uint64_t memory_size;  
+  uint64_t memory_offset;  
+  bool dedicated;  
+};  
+</code></pre>
+
+<a name="SyncDesc"></a>
+<h3>SyncDesc</h3>
+
+<pre><code>struct SyncDesc {  
+  SyncStrategy sync_strategy;  
+  ShareHandle share_handle;  
+  uint64_t value;  
+};  
+</code></pre>
+
+<p><br/><br/>
+<br/></p>
+</body>
+</html>
