@@ -8,9 +8,11 @@ The HUD project file is an example project for blending TouchDesigner and PIXERA
 
 # Requirements
 
-These example project files were built using TouchDesigner 099 Commercial 2023.12230. As of September 2025 the version used to test was 25.2 RC 5, however any gold version of PIXERA from 25.2 R 12 onward should have the integration rolled into it.
+These example project files were built using TouchDesigner 099 Commercial 2023.12230. As of September 2025 the version used to test was 25.2 RC 5, however any gold version of PIXERA from 26.1 onward should have the integration rolled into it.
 
-In order to run TouchDesigner in PIXERA you will need to have a valid TouchDesigner license loaded onto the same machine that PIXERA is on as well. Additionally, PIXERA's software needs to be 25.2 and onward to be compatible. Lastly a .tox file is needed. HUD.tox is an example file users are welcome to load into PIXERA and experiment with.
+In order to run TouchDesigner in PIXERA you will need to have a valid TouchDesigner license loaded onto the same machine that PIXERA is on as well. Additionally, PIXERA's software needs to be 26.1 and onward to be compatible. If you want to test with a version before 26.1 but after 25.xx then [send in a ticket](https://avstumpfl.freshdesk.com/support/tickets/new) requesting this.
+
+Lastly a .tox file is needed. HUD.tox is an example file users are welcome to load into PIXERA and experiment with.
 
 # Documentation
 
